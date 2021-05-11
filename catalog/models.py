@@ -9,6 +9,13 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class Language(models.Model):
+    name = models.CharField(max_length=200, help_text="Enter the book's natural Language(eg. English, Arabic, etc)")
+
+    def __str__(self):
+        return self.name
+
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
@@ -21,6 +28,14 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse('bood-detail', args=[str(self.id)])
+
+    def display_genre(self):
+        '''To display data of field with many-to-many relationship'''
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = 'Genre'
+
+
 
 class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular book across the whole library')

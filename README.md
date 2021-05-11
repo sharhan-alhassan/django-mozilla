@@ -86,6 +86,61 @@ ordering = ['title', '-pub_date']
 - `field_name ==> title` AND `match_type ==> contains`
 
 - Examples of matches types are: `contains (case-insentive)` and `icontains(case-insentitive)`
+### Part 4: Django Admin Site
+### Admin Site
+
+- Usually `list_display` field is used to list the fields of a model in the `Admin Site` to properly view data from those fields
+
+- Unfortunately, a field with `ManyToManyField` relationship can not be used in the `list_display` from the Admin model in the `admin.py` because Django won't allow that. 
+
+- Django doesn't allow that because there'll be a large database access COST. 
+
+- To get around in displaying data from `ManyToManyField` relationship field, create a function to get the information as a string
+
+- Let's create a function called `display_genre` int he `Book` model
+
+python 
+```
+
+def display_genre(self):
+    return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+display_genre.short_description = 'Genre'
+
+```
+
+- Likewise, you can apply filtering to the Model in the Admin area with the `list_filter` field. This feature adds a filter bar on the right. 
+
+- In the admin site, fields are displayed vertically by default, but will display horizontally if you group them in a tuple. Example:
+1. `Vertical display: list_display = ['fname', 'lname', 'age']`
+
+2. `Horizontal display: list_display = ('fname', 'lname', 'age')`
+
+### Sectioning a Detail view on the Admin site
+
+- You can add `"sections"` to group related model information within the detail form, using the `fieldsets` attribute.
+
+- In the `BookInstance` model we have information related to what the book is `(i.e. name, imprint, and id)` and when it will be a`vailable (status, due_back)`. We can add these in different sections by adding the text in bold to our BookInstanceAdmin class. 
+
+```
+fieldsets = (
+        (None, {
+            'fields': ('book', 'imprint', 'id')
+        }),
+        ('Availability', {
+            'fields': ('status', 'due_back')
+        }),
+    )
+```
+- section 1 has no title, section 2 has a title called availability
+
+
+
+### Part 5: Creating Home Page
+
+
+
+### Part 6: General Lists and Detail Views
 
 
 Take the following code for example. 
