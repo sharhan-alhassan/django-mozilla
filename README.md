@@ -141,6 +141,27 @@ fieldsets = (
 
 
 ### Part 6: General Lists and Detail Views
+- Two generic views are `List` and `Detail`
+- without `queryset` set, the List view will automatically generate the List for. However, you can overide this by explicitly declaring `queryset` or better still using the method `get_queryset()`. Syntax:
+    ```def get_queryset(self):
+        return ...
+    ```
+- You can add extra data to the list of objects. It returns context data for displaying the list of objects. `get_context_data(self, **kwargs)`
+Syntax:
+
+```
+def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(BookListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['some_data'] = 'This is just some data'
+        return context
+```
+
+Steps in creating a `get_context_data()`:
+1. First get the existing context from our superclass
+2. Then add your new context information
+3. Then return the new(updated) context 
 
 
 Take the following code for example. 

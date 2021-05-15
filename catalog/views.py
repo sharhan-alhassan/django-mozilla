@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
-from django.views import ListView
+from django.views.generic import TemplateView, ListView, DetailView
 
 from catalog.models import Book, Author, BookInstance, Genre, Language
 
@@ -28,6 +27,12 @@ def index(request):
 class BookListView(ListView):
     model = Book
     context_object_name = 'book_list'
-    queryset = Book.objects.filter(title__icontains='count')
+    # queryset = Book.objects.filter(title__icontains='count')[:5]
     template_name = 'book_list.html'
 
+    def get_query_set(self):
+        return Book.objects.filter(title__icontains='count')[:5]
+
+class BookDetailView(DetailView):
+    model = Book
+    template_name = 'book_detail'
