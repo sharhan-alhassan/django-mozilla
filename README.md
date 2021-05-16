@@ -164,6 +164,23 @@ Steps in creating a `get_context_data()`:
 3. Then return the new(updated) context 
 
 
+### Regular expressions for URL mapping
+- Sintax of `re` is: `r'<regular expression goes here>`
+
+### How to get choices from `choices field`
+- If you have a choices field with attribute = `status` and a model name `BookInstance`. 
+- Django automatically creates a method `get_FOO_display()` for every choices field `FOO` in a model, which can be used to get the current value of the field.
+- The method here is : `get_status_display()`
+
+
+### Pagination:
+- Use `paginate_by` attribute on the view handler (class view).
+- The different pages are accessed using `GET` parameters -- to access page 2 you would use the URL `books/?page=2`
+- To to add this functionality to the template, we might choose to do this in the `base_generic` template
+
+- The `page_obj` is a Paginator object that will exist if pagination is being used on the current page. It allows you to get all the information about the `current page, previous pages, how many pages there are`, etc. 
+
+
 Take the following code for example. 
 
 ```

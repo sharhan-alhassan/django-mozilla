@@ -1,6 +1,7 @@
 from django.db import models
 import uuid # required for unique book instances 
 
+from django.urls import reverse
 # Create your models here.
 
 class Genre(models.Model):
@@ -27,7 +28,7 @@ class Book(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('bood-detail', args=[str(self.id)])
+        return reverse('book-detail', args=[str(self.id)])
 
     def display_genre(self):
         '''To display data of field with many-to-many relationship'''
