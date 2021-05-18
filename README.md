@@ -181,8 +181,14 @@ Steps in creating a `get_context_data()`:
 - The `page_obj` is a Paginator object that will exist if pagination is being used on the current page. It allows you to get all the information about the `current page, previous pages, how many pages there are`, etc. 
 
 
-Take the following code for example. 
+### Sessions framework
+- Objective of session: `The session framework lets you implement features at user level, allowing you to store and retrieve arbitrary data on a per-site-visitor basis. `
+ 
+- **Django uses a cookie containing a special session id to identify each browser and its associated session with the site. The actual session data is stored in the site database by default (this is more secure than storing the data in a cookie, where they are more vulnerable to malicious users). You can configure Django to store the session data in other places (cache, files, "secure" cookies), but the default location is a good and relatively secure option.**
 
-```
 
-```
+### Part 9: FORMS
+
+- If a form is valid, then we can start to use the data, accessing it through the `form.cleaned_data` attribute (e.g. `data = form.cleaned_data['renewal_date'])`. Here we just save the data into the `due_back` value of the associated `BookInstance` object.
+- ### Warning:
+- While you can also access the form data directly through the request (for example, `request.POST['renewal_date']` or `request.GET['renewal_date']` if using a GET request), this is `NOT` recommended. The cleaned data is sanitized, validated, and converted into Python-friendly types.
